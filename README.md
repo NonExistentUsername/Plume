@@ -1,1 +1,3 @@
 # Plume
+
+Desktop Telegram client
