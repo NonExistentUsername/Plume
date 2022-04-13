@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="370.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unknown.plumedesktop.enterPhoneController">
+   <BorderPane prefHeight="370.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="322.0" BorderPane.alignment="CENTER">
+            <MFXButton fx:id="next_button" layoutX="80.0" layoutY="119.0" onMouseReleased="#next_released" prefHeight="41.0" prefWidth="164.0" rippleAnimateBackground="false" rippleAnimationSpeed="2.0" rippleColor="#2b4b7a" rippleRadiusMultiplier="1.0" style="-fx-border-radius: 100px; -fx-background-color: #1f6dab;" text="LogOut" textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
+               <font>
+                  <Font name="Montserrat Bold" size="20.0" />
+               </font>
+            </MFXButton>
+         </Pane>
+      </center>
+   </BorderPane>
+</AnchorPane>

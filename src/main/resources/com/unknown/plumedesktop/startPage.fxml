@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="370.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unknown.plumedesktop.startController">
+   <children>
+      <BorderPane prefHeight="370.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="322.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MFXButton fx:id="start_messaging" layoutX="46.0" layoutY="128.0" onMouseReleased="#start_messaging_pressed" prefHeight="48.0" prefWidth="230.0" rippleAnimateBackground="false" rippleAnimationSpeed="2.0" rippleColor="#2b4b7a" rippleRadiusMultiplier="1.0" style="-fx-border-radius: 100px; -fx-background-color: #1f6dab;" text="Start messaging" textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
+                     <font>
+                        <Font name="Montserrat Bold" size="20.0" />
+                     </font>
+                  </MFXButton>
+                  <Label alignment="CENTER" layoutX="83.0" layoutY="16.0" prefHeight="59.0" prefWidth="157.0" text="Plume" textAlignment="CENTER">
+                     <font>
+                        <Font name="Comfortaa Bold" size="40.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="0.8835227272727272" endY="1.0" startX="0.1818181348569466">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="1.0" green="0.39851853251457214" blue="0.2481481432914734" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.007680491551459294">
+                                 <color>
+                                    <Color red="1.0" green="0.39851853251457214" blue="0.2481481432914734" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.32213753987947535">
+                                 <color>
+                                    <Color red="0.9578947424888611" green="0.4363742768764496" blue="0.8796666860580444" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.6606699751861045">
+                                 <color>
+                                    <Color red="0.3444444537162781" green="0.9890740513801575" blue="1.0" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.33407407999038696" green="0.31111112236976624" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="69.0" prefHeight="53.0" prefWidth="293.0" text="Experimental Desktop Telegram Client. Secure, fast and easy for use." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Montserrat Regular" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
