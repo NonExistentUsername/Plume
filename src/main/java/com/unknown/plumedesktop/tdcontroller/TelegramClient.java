@@ -1,5 +1,6 @@
 package com.unknown.plumedesktop.tdcontroller;
 
+import com.unknown.plumedesktop.tools.IObservable;
 import com.unknown.plumedesktop.tools.ObservableComponent;
 import com.unknown.plumedesktop.tools.IObserver;
 import org.drinkless.tdlib.Client;
@@ -30,7 +31,12 @@ class CEHB implements Client.ExceptionHandler {
 
 }
 
-public class TelegramClient {
+public class TelegramClient implements IObservable, IObserver {
+    @Override
+    public void notify(String message) {
+
+    }
+
     private class RetryResultHandler implements Client.ResultHandler {
         private final TdApi.Function query;
 
@@ -72,10 +78,12 @@ public class TelegramClient {
     }
     public TelegramClient() {}
 
+    @Override
     public void addObserver(IObserver observer) {
         observable_component.addObserver(observer);
     }
 
+    @Override
     public void removeObserver(IObserver observer) {
         observable_component.removeObserver(observer);
     }
