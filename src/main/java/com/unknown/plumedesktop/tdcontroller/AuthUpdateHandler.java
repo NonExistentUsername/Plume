@@ -1,10 +1,23 @@
 package com.unknown.plumedesktop.tdcontroller;
 
+import com.unknown.plumedesktop.tools.IObservable;
+import com.unknown.plumedesktop.tools.IObserver;
+import com.unknown.plumedesktop.tools.ObservableComponent;
 import org.drinkless.tdlib.Client;
 import org.drinkless.tdlib.TdApi;
 
 
-public class AuthUpdateHandler implements Client.ResultHandler {
+public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
+    @Override
+    public void addObserver(IObserver observer) {
+        observableComponent.addObserver(observer);
+    }
+
+    @Override
+    public void removeObserver(IObserver observer) {
+        observableComponent.removeObserver(observer);
+    }
+
     class ResultHandler implements Client.ResultHandler {
         @Override
         public void onResult(TdApi.Object object) {
@@ -19,6 +32,7 @@ public class AuthUpdateHandler implements Client.ResultHandler {
         }
     }
 
+    private final ObservableComponent observableComponent = new ObservableComponent();
     private TdApi.AuthorizationState authState = null;
     private final TelegramClient tc;
 
@@ -47,7 +61,10 @@ public class AuthUpdateHandler implements Client.ResultHandler {
                         new AuthUpdateHandler.ResultHandler());
                 break;
             case TdApi.AuthorizationStateWaitPhoneNumber.CONSTRUCTOR:
-                tc.waitForNumber();
+                this.observableComponent.notify("auth wait for number");
+                break;
+            case TdApi.AuthorizationStateWaitCode.CONSTRUCTOR:
+                this.observableComponent.notify("auth wait for code");
                 break;
             default:
                 System.out.println("AuthUpdateHandler Ignored: ");
