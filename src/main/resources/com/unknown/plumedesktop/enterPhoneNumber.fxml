@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="370.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unknown.plumedesktop.enterPhoneController">
+   <BorderPane layoutX="-6.0" prefHeight="370.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
+      <center>
+         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="322.0" BorderPane.alignment="CENTER">
+            <MFXButton fx:id="next_button" layoutX="54.0" layoutY="127.0" onMouseReleased="#next_released" prefHeight="50.0" prefWidth="218.0" rippleAnimateBackground="false" rippleAnimationSpeed="2.0" rippleColor="#2b4b7a" rippleRadiusMultiplier="1.0" style="-fx-border-radius: 100px; -fx-background-color: #1f6dab;" text="NEXT" textAlignment="CENTER" textFill="#f2f2f2" wrapText="true">
+               <font>
+                  <Font name="Montserrat Bold" size="20.0" />
+               </font>
+            </MFXButton>
+            <MFXTextField fx:id="phone_number" floatMode="DISABLED" layoutX="54.0" layoutY="81.0" prefHeight="29.0" prefWidth="218.0" textLimit="20" />
+            <Label layoutX="54.0" layoutY="47.0" prefHeight="17.0" prefWidth="215.0" text="Your phone number">
+               <font>
+                  <Font name="Montserrat Regular" size="16.0" />
+               </font>
+            </Label>
+         </Pane>
+      </center>
+   </BorderPane>
+</AnchorPane>
