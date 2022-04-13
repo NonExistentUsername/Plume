@@ -15,7 +15,7 @@ public class enterPhoneController {
 
     @FXML
     void next_released(MouseEvent event) {
-
+        PlumeApplication.sendPhoneNumber(phone_number.getText());
     }
 
 }

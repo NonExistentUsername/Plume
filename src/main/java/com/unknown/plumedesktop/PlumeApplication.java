@@ -32,6 +32,10 @@ public class PlumeApplication extends Application {
         stage.show();
     }
 
+    static public void sendPhoneNumber(String number) {
+        tc.sendNumber(number);
+    }
+
     public static void main(String[] args) {
         launch();
     }
