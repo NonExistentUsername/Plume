@@ -12,28 +12,31 @@ import java.io.IOException;
 
 public class PlumeApplication extends Application {
     private static Stage stage = null;
-    private static AuthSceneLoader loginScenesLoader = null;
-    private static TelegramClient tc = null;
+    private static SceneLoader loginScenesLoader = null;
+    public static TelegramClient tc = null;
+
+    private static AutoSceneChanger autoSceneChanger = null;
+    public static AuthUpdateHandler autoUpdateHandler = null;
 
     @Override
     public void start(Stage _stage) throws IOException {
-        loginScenesLoader = new AuthSceneLoader(true);
+        loginScenesLoader = new SceneLoader(true);
         stage = _stage;
         stage.setTitle("Plume");
         stage.setScene(loginScenesLoader.getStartScene());
         stage.show();
 
         tc = new TelegramClient();
-        tc.create(new UpdateHandler(new AuthUpdateHandler(tc)), new TDParams(false));
+        autoUpdateHandler = new AuthUpdateHandler(tc);
+        tc.create(new UpdateHandler(autoUpdateHandler), new TDParams(false));
+
+        autoSceneChanger = new AutoSceneChanger(autoUpdateHandler);
+        autoUpdateHandler.addObserver(autoSceneChanger);
     }
 
     static public void changeScene(Scene scene) {
         stage.setScene(scene);
         stage.show();
-    }
-
-    static public void sendPhoneNumber(String number) {
-        tc.sendNumber(number);
     }
 
     public static void main(String[] args) {

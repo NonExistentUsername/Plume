@@ -16,6 +16,8 @@ class CEHA implements Client.ExceptionHandler {
     @Override
     public void onException(Throwable e) {
         System.out.println(e.getMessage());
+        e.printStackTrace();
+        System.out.println(e);
         System.out.println("CEHA.onException updateExceptionHandler");
     }
 
@@ -34,11 +36,16 @@ class CEHB implements Client.ExceptionHandler {
 public class TelegramClient implements IObservable, IObserver {
     @Override
     public void notify(String message) {
-
+//        System.out.println("AutoSceneChanger.notify");
+//        System.out.println(message);
+//        if(message.equals("auth wait for number") || message.equals("auth wait for code")) {
+//            this.observable_component.notify(message);
+//        }
     }
 
     private class RetryResultHandler implements Client.ResultHandler {
         private final TdApi.Function query;
+        private boolean flag = false;
 
         public RetryResultHandler(TdApi.Function query) {
             this.query = query;
@@ -50,7 +57,12 @@ public class TelegramClient implements IObservable, IObserver {
                 case TdApi.Error.CONSTRUCTOR -> {
                     TdApi.Error error = (TdApi.Error) object;
                     System.err.println("Receive an error:\n" + object);
-                    client.send(query, this);
+                    if(!flag) {
+                        client.send(query, this);
+                        flag = true;
+                    } else {
+                        System.err.println("Skipped");
+                    }
                 }
                 case TdApi.Ok.CONSTRUCTOR -> System.err.println("Receive an OK\n");
                 default -> System.err.println("Receive wrong response from TDLib:\n" + object);
@@ -105,13 +117,23 @@ public class TelegramClient implements IObservable, IObserver {
 
     public void sendNumber(String number) {
         TdApi.Function query = new TdApi.SetAuthenticationPhoneNumber(number, null);
-        client.send(
+        send(
                 query,
                 new TelegramClient.RetryResultHandler(query));
     }
 
-    public void waitForNumber() {
-        observable_component.notify("wait for number");
+    public void sendCode(String code) {
+        TdApi.Function query = new TdApi.CheckAuthenticationCode(code);
+        send(
+                query,
+                new TelegramClient.RetryResultHandler(query));
+    }
+
+    public void sendPassword(String password) {
+        TdApi.Function query = new TdApi.CheckAuthenticationPassword(password);
+        send(
+                query,
+                new TelegramClient.RetryResultHandler(query));
     }
 
     public void send(TdApi.Function query, Client.ResultHandler resultHandler) {

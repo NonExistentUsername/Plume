@@ -9,4 +9,6 @@ module com.unknown.plumedesktop {
 
     opens com.unknown.plumedesktop to javafx.fxml;
     exports com.unknown.plumedesktop;
+    exports com.unknown.plumedesktop.controllers;
+    opens com.unknown.plumedesktop.controllers to javafx.fxml;
 }

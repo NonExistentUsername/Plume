@@ -1,0 +1,13 @@
+.input-text-field {
+    -fx-border-color: #2b4b7a;
+    -fx-text-fill: black;
+}
+
+.next-button {
+    -fx-border-radius: 100px;
+    -fx-background-color: #1f6dab;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent;
+}

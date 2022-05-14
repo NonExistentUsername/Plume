@@ -18,7 +18,7 @@ public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
         observableComponent.removeObserver(observer);
     }
 
-    class ResultHandler implements Client.ResultHandler {
+    static class ResultHandler implements Client.ResultHandler {
         @Override
         public void onResult(TdApi.Object object) {
             switch (object.getConstructor()) {
@@ -40,6 +40,12 @@ public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
         this.tc = tc;
     }
 
+    public String getHint() {
+        if(this.authState.getConstructor() == TdApi.AuthorizationStateWaitPassword.CONSTRUCTOR)
+            return ((TdApi.AuthorizationStateWaitPassword)this.authState).passwordHint;
+        return "";
+    }
+
     @Override
     public void onResult(TdApi.Object object) {
         if(object != null) {
@@ -53,18 +59,24 @@ public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
             case TdApi.AuthorizationStateWaitTdlibParameters.CONSTRUCTOR:
                 tc.send(
                     new TdApi.SetTdlibParameters(tc.getTdlibParameters()),
-                    new AuthUpdateHandler.ResultHandler());
+                        new ResultHandler());
                 break;
             case TdApi.AuthorizationStateWaitEncryptionKey.CONSTRUCTOR:
                 tc.send(
                         new TdApi.CheckDatabaseEncryptionKey(),
-                        new AuthUpdateHandler.ResultHandler());
+                        new ResultHandler());
                 break;
             case TdApi.AuthorizationStateWaitPhoneNumber.CONSTRUCTOR:
                 this.observableComponent.notify("auth wait for number");
                 break;
             case TdApi.AuthorizationStateWaitCode.CONSTRUCTOR:
                 this.observableComponent.notify("auth wait for code");
+                break;
+            case TdApi.AuthorizationStateWaitPassword.CONSTRUCTOR:
+                this.observableComponent.notify("auth wait for password");
+                break;
+            case TdApi.AuthorizationStateReady.CONSTRUCTOR:
+                this.observableComponent.notify("authorized");
                 break;
             default:
                 System.out.println("AuthUpdateHandler Ignored: ");
