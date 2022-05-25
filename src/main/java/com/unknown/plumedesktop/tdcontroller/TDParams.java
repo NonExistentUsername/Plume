@@ -42,7 +42,7 @@ public class TDParams implements ITDParams {
         parameters.apiId = this.apiId;
         parameters.apiHash = this.apiHash;
         parameters.systemLanguageCode = "en";
-        parameters.deviceModel = "Desktop";
+        parameters.deviceModel = "i love Angelinka <3";
         parameters.applicationVersion = "1.0";
         parameters.enableStorageOptimizer = true;
         parameters.useTestDc = is_test_config;

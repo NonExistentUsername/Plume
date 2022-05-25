@@ -22,8 +22,12 @@ public class enterPhoneController {
 
     @FXML
     void next_released(MouseEvent event) {
-        if(this.tc != null)
+        if(this.tc != null) {
             this.tc.sendNumber(phone_number.getText());
+            System.out.println("Send phone");
+        } else {
+            System.err.println("Send phone ignored");
+        }
     }
 
 }

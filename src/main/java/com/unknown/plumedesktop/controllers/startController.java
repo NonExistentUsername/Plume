@@ -12,6 +12,7 @@ public class startController {
 
     @FXML
     void start_messaging_pressed(MouseEvent event) {
+        
         AuthSceneController.get().setEnterPhoneNumberScene();
     }
 

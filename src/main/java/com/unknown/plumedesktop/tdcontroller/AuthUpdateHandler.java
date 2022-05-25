@@ -18,19 +18,19 @@ public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
         observableComponent.removeObserver(observer);
     }
 
-    static class ResultHandler implements Client.ResultHandler {
-        @Override
-        public void onResult(TdApi.Object object) {
-            switch (object.getConstructor()) {
-                case TdApi.Error.CONSTRUCTOR -> {
-                    System.err.println("Receive an error:\n" + object);
-                    onResult(null); // repeat last action
-                }
-                case TdApi.Ok.CONSTRUCTOR -> System.err.println("Receive an OK\n");
-                default -> System.err.println("Receive wrong response from TDLib:\n" + object);
-            }
-        }
-    }
+//    static class ResultHandler implements Client.ResultHandler {
+//        @Override
+//        public void onResult(TdApi.Object object) {
+//            switch (object.getConstructor()) {
+//                case TdApi.Error.CONSTRUCTOR -> {
+//                    System.err.println("Receive an error:\n" + object);
+//                    onResult(null); // repeat last action
+//                }
+//                case TdApi.Ok.CONSTRUCTOR -> System.err.println("Receive an OK\n");
+//                default -> System.err.println("Receive wrong response from TDLib:\n" + object);
+//            }
+//        }
+//    }
 
     private final ObservableComponent observableComponent = new ObservableComponent();
     private TdApi.AuthorizationState authState = null;
@@ -46,6 +46,12 @@ public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
         return "";
     }
 
+    private void mySend(TdApi.Function query) {
+        tc.send(
+                query,
+                tc.new RetryResultHandler(query));
+    }
+
     @Override
     public void onResult(TdApi.Object object) {
         if(object != null) {
@@ -57,14 +63,11 @@ public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
 
         switch(this.authState.getConstructor()) {
             case TdApi.AuthorizationStateWaitTdlibParameters.CONSTRUCTOR:
-                tc.send(
-                    new TdApi.SetTdlibParameters(tc.getTdlibParameters()),
-                        new ResultHandler());
+                mySend(new TdApi.SetTdlibParameters(tc.getTdlibParameters()));
+                System.err.println("TDLib params sent");
                 break;
             case TdApi.AuthorizationStateWaitEncryptionKey.CONSTRUCTOR:
-                tc.send(
-                        new TdApi.CheckDatabaseEncryptionKey(),
-                        new ResultHandler());
+                mySend(new TdApi.CheckDatabaseEncryptionKey());
                 break;
             case TdApi.AuthorizationStateWaitPhoneNumber.CONSTRUCTOR:
                 this.observableComponent.notify("auth wait for number");
@@ -77,6 +80,12 @@ public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
                 break;
             case TdApi.AuthorizationStateReady.CONSTRUCTOR:
                 this.observableComponent.notify("authorized");
+                break;
+            case TdApi.AuthorizationStateLoggingOut.CONSTRUCTOR:
+                this.observableComponent.notify("logging out");
+                break;
+            case TdApi.AuthorizationStateClosed.CONSTRUCTOR:
+                this.observableComponent.notify("closed");
                 break;
             default:
                 System.out.println("AuthUpdateHandler Ignored: ");

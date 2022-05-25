@@ -30,5 +30,15 @@ public class AuthSceneController {
         epc.setHint(hint);
         PlumeApplication.changeScene(sc);
     }
-    public void setMainScene() { PlumeApplication.changeScene(authSceneLoader.getMainScene()); }
+    public void setMainScene() {
+        PlumeApplication.tc.setMainController(authSceneLoader.getMainController());
+        AutoMainUIUpdater autoMainUIUpdater = new AutoMainUIUpdater(authSceneLoader.getMainController());
+        PlumeApplication.changeScene(authSceneLoader.getMainScene());
+        autoMainUIUpdater.setDaemon(true);
+        autoMainUIUpdater.setPriority(3);
+        autoMainUIUpdater.start();
+    }
+    public void setStartScene() {
+        PlumeApplication.changeScene(authSceneLoader.getStartScene());
+    }
 }

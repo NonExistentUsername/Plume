@@ -40,6 +40,14 @@ public class AutoSceneChanger implements IObserver {
                     AuthSceneController.get().setMainScene();
                 }
             });
+        } else
+        if(message.equals("closed")) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    AuthSceneController.get().setStartScene();
+                }
+            });
         }
     }
 }

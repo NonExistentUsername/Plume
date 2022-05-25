@@ -17,7 +17,7 @@
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </MFXButton>
-            <MFXTextField fx:id="phone_number" floatMode="DISABLED" layoutX="54.0" layoutY="81.0" prefHeight="29.0" prefWidth="218.0" textLimit="20" />
+            <MFXTextField fx:id="phone_number" floatMode="DISABLED" layoutX="54.0" layoutY="81.0" prefHeight="29.0" prefWidth="218.0" styleClass="input-text-field" stylesheets="@css/main.css" textLimit="20" />
             <Label layoutX="54.0" layoutY="47.0" prefHeight="17.0" prefWidth="215.0" text="Your phone number">
                <font>
                   <Font name="Montserrat Regular" size="16.0" />

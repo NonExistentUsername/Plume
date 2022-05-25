@@ -3,7 +3,6 @@ package com.unknown.plumedesktop;
 import com.unknown.plumedesktop.tdcontroller.AuthUpdateHandler;
 import com.unknown.plumedesktop.tdcontroller.TDParams;
 import com.unknown.plumedesktop.tdcontroller.TelegramClient;
-import com.unknown.plumedesktop.tdcontroller.UpdateHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,7 +15,7 @@ public class PlumeApplication extends Application {
     public static TelegramClient tc = null;
 
     private static AutoSceneChanger autoSceneChanger = null;
-    public static AuthUpdateHandler autoUpdateHandler = null;
+    public static AuthUpdateHandler authUpdateHandler = null;
 
     @Override
     public void start(Stage _stage) throws IOException {
@@ -27,11 +26,12 @@ public class PlumeApplication extends Application {
         stage.show();
 
         tc = new TelegramClient();
-        autoUpdateHandler = new AuthUpdateHandler(tc);
-        tc.create(new UpdateHandler(autoUpdateHandler), new TDParams(false));
+        authUpdateHandler = new AuthUpdateHandler(tc);
+        authUpdateHandler.addObserver(tc);
+        tc.create(authUpdateHandler, new TDParams(true));
 
-        autoSceneChanger = new AutoSceneChanger(autoUpdateHandler);
-        autoUpdateHandler.addObserver(autoSceneChanger);
+        autoSceneChanger = new AutoSceneChanger(authUpdateHandler);
+        authUpdateHandler.addObserver(autoSceneChanger);
     }
 
     static public void changeScene(Scene scene) {

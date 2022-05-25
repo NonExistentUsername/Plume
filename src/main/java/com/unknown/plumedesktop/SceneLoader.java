@@ -3,7 +3,7 @@ package com.unknown.plumedesktop;
 import com.unknown.plumedesktop.controllers.enterCodeController;
 import com.unknown.plumedesktop.controllers.enterPasswordController;
 import com.unknown.plumedesktop.controllers.enterPhoneController;
-import com.unknown.plumedesktop.controllers.mainController;
+import com.unknown.plumedesktop.controllers.MainController;
 import com.unknown.plumedesktop.models.ThumbnailChat;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -35,6 +35,8 @@ public class SceneLoader {
             Object controller = fxmlLoader.getController();
             return new SceneAndController(scene, controller);
         } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(e);
             return null;
         }
     }
@@ -60,9 +62,6 @@ public class SceneLoader {
     private void load_main() {
         main = load("main.fxml");
         assert main != null;
-
-        ((mainController)main.controller).addThumbnailChat(new ThumbnailChat("test"));
-        ((mainController)main.controller).addThumbnailChat(new ThumbnailChat("test2"));
     }
 
     private void load_all() {
@@ -125,5 +124,13 @@ public class SceneLoader {
         }
         assert main != null;
         return main.scene;
+    }
+
+    public MainController getMainController() {
+        if(main == null) {
+            load_main();
+        }
+        assert main != null;
+        return (MainController) main.controller;
     }
 }
