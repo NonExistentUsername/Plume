@@ -18,20 +18,6 @@ public class AuthUpdateHandler implements Client.ResultHandler, IObservable {
         observableComponent.removeObserver(observer);
     }
 
-//    static class ResultHandler implements Client.ResultHandler {
-//        @Override
-//        public void onResult(TdApi.Object object) {
-//            switch (object.getConstructor()) {
-//                case TdApi.Error.CONSTRUCTOR -> {
-//                    System.err.println("Receive an error:\n" + object);
-//                    onResult(null); // repeat last action
-//                }
-//                case TdApi.Ok.CONSTRUCTOR -> System.err.println("Receive an OK\n");
-//                default -> System.err.println("Receive wrong response from TDLib:\n" + object);
-//            }
-//        }
-//    }
-
     private final ObservableComponent observableComponent = new ObservableComponent();
     private TdApi.AuthorizationState authState = null;
     private final TelegramClient tc;

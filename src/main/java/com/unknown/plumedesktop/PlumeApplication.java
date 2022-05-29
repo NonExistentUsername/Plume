@@ -28,7 +28,7 @@ public class PlumeApplication extends Application {
         tc = new TelegramClient();
         authUpdateHandler = new AuthUpdateHandler(tc);
         authUpdateHandler.addObserver(tc);
-        tc.create(authUpdateHandler, new TDParams(true));
+        tc.create(authUpdateHandler, new TDParams(false));
 
         autoSceneChanger = new AutoSceneChanger(authUpdateHandler);
         authUpdateHandler.addObserver(autoSceneChanger);

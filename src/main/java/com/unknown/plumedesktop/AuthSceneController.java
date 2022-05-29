@@ -31,6 +31,7 @@ public class AuthSceneController {
         PlumeApplication.changeScene(sc);
     }
     public void setMainScene() {
+        authSceneLoader.getMainController().clearChatlist();
         PlumeApplication.tc.setMainController(authSceneLoader.getMainController());
         AutoMainUIUpdater autoMainUIUpdater = new AutoMainUIUpdater(authSceneLoader.getMainController());
         PlumeApplication.changeScene(authSceneLoader.getMainScene());

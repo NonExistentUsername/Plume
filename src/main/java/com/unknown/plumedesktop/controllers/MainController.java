@@ -1,15 +1,10 @@
 package com.unknown.plumedesktop.controllers;
 
 import com.unknown.plumedesktop.PlumeApplication;
-import com.unknown.plumedesktop.models.ThumbnailChat;
 import com.unknown.plumedesktop.models.UserMessageRenderer;
-import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -58,6 +53,10 @@ public class MainController implements Initializable {
         }
     }
 
+    public void clearChatlist() {
+        this.chatlist.getChildren().removeAll();
+    }
+
     @FXML
     void exitButtonReleased(MouseEvent event) {
         PlumeApplication.tc.logout();
@@ -77,18 +76,6 @@ public class MainController implements Initializable {
         TdApi.Chat chat = PlumeApplication.tc.getChat(chatId);
         currentChatTitle.setText(chat.title);
         PlumeApplication.tc.getChatMessageList(chatId);
-    }
-
-    private Node loadUserMessage(String text) {
-        try {
-            FXMLLoader loader = new FXMLLoader(PlumeApplication.class.getResource("userMessage.fxml"));
-            Node result = loader.load();
-            ((UserMessage) loader.getController()).setText(text);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public void addChatHistory(ArrayList<TdApi.Message> ms, int totalCount) {

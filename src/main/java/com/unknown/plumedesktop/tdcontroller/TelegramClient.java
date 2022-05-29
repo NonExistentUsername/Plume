@@ -170,7 +170,6 @@ public class TelegramClient implements IObservable, IObserver {
         }
     }
 
-
     public Long getMyId() {
         TdApi.Function query = new TdApi.GetMe();
         getMeLock.lock();
@@ -239,7 +238,7 @@ public class TelegramClient implements IObservable, IObserver {
 
     public ArrayList<ThumbnailChat> getChatList() {
         ArrayList<ThumbnailChat> result = new ArrayList<>();
-        this.getMainChatList(20);
+        this.getMainChatList(512);
         synchronized (mainChatList) {
             mainChatList.forEach(chat -> {
                 TdApi.Chat c = chats.get(chat.chatId);
@@ -287,7 +286,6 @@ public class TelegramClient implements IObservable, IObserver {
                 query,
                 new TelegramClient.ChatHistoryHandler(new ArrayList<>(), chatId, limit, mainController));
     }
-
 
     private void getMainChatList(final int limit) {
         synchronized (mainChatList) {
@@ -383,6 +381,7 @@ public class TelegramClient implements IObservable, IObserver {
     }
 
     public void sendNumber(String number) {
+        System.out.println("Send number");
         TdApi.Function query = new TdApi.SetAuthenticationPhoneNumber(number, null);
         send(
                 query,
@@ -404,6 +403,7 @@ public class TelegramClient implements IObservable, IObserver {
     }
 
     public void send(TdApi.Function query, Client.ResultHandler resultHandler) {
+        System.out.println("Called  send");
         lock.lock();
         client.send(
                 query,
@@ -426,8 +426,6 @@ public class TelegramClient implements IObservable, IObserver {
             System.err.println("New Client created");
         }
     }
-
-
 
     public class UpdateHandler implements Client.ResultHandler {
         private final Client.ResultHandler authUpdateHandler;
